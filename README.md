@@ -1,1 +1,1 @@
-# Codepath-2016-iOS-Airbnb-Course
+# Codepath 2016 iOS Airbnb Course
