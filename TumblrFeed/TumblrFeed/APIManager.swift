@@ -23,7 +23,16 @@ class APIManager: NSObject {
         let task : URLSessionDataTask = session.dataTask(with: request,completionHandler: { (dataOrNil, response, error) in
             if let data = dataOrNil {
                 if let responseDictionary = try! JSONSerialization.jsonObject(with: data, options:[]) as? NSDictionary {
-                    print("response: \(responseDictionary)")
+                    NSLog("response: \(responseDictionary)")
+//                    let photosArray = responseDictionary["response"]["posts"]
+                    let response = responseDictionary.object(forKey: "response") as! NSDictionary
+                    let posts = response.object(forKey: "posts") as! [NSDictionary]
+                    var photosArray = [String]()
+                    for post in posts {
+                        let photoUrl = post["image_permalink"] as! String
+                        print(photoUrl)
+                        photosArray.append(photoUrl)
+                    }
                 }
             }
         });

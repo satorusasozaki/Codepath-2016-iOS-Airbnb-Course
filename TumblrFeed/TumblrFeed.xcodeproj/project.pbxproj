@@ -18,6 +18,7 @@
 		E33431A21DAD96210056B99F /* TumblrFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33431A11DAD96210056B99F /* TumblrFeedTests.swift */; };
 		E33431AD1DAD96210056B99F /* TumblrFeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33431AC1DAD96210056B99F /* TumblrFeedUITests.swift */; };
 		E340A4A01DADB7D200CC5C36 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E340A49F1DADB7D200CC5C36 /* APIManager.swift */; };
+		E353337E1DB04E1800FEA3AB /* PhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E353337D1DB04E1800FEA3AB /* PhotoTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		E33431AC1DAD96210056B99F /* TumblrFeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TumblrFeedUITests.swift; sourceTree = "<group>"; };
 		E33431AE1DAD96210056B99F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E340A49F1DADB7D200CC5C36 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		E353337D1DB04E1800FEA3AB /* PhotoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoTableViewCell.swift; sourceTree = "<group>"; };
 		ECF8CCEE28FBDD9D364DBDB0 /* Pods-TumblrFeedTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TumblrFeedTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TumblrFeedTests/Pods-TumblrFeedTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F5F50CBF410CE08D352D78FD /* Pods_TumblrFeedTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TumblrFeedTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -141,6 +143,7 @@
 			children = (
 				E334318C1DAD96210056B99F /* AppDelegate.swift */,
 				E334318E1DAD96210056B99F /* PhotoViewController.swift */,
+				E353337D1DB04E1800FEA3AB /* PhotoTableViewCell.swift */,
 				E340A49F1DADB7D200CC5C36 /* APIManager.swift */,
 				E33431901DAD96210056B99F /* Main.storyboard */,
 				E33431931DAD96210056B99F /* Assets.xcassets */,
@@ -449,6 +452,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E353337E1DB04E1800FEA3AB /* PhotoTableViewCell.swift in Sources */,
 				E340A4A01DADB7D200CC5C36 /* APIManager.swift in Sources */,
 				E334318F1DAD96210056B99F /* PhotoViewController.swift in Sources */,
 				E334318D1DAD96210056B99F /* AppDelegate.swift in Sources */,
