@@ -26,8 +26,10 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.delegate = self
         
         photosArray = [String]()
-        getResponse()
+        let refreshControl = UIRefreshControl()
+        getResponse(refreshControl: refreshControl)
         tableView.rowHeight = 320
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -44,7 +46,7 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
         return cell
     }
     
-    func getResponse() {
+    func getResponse(refreshControl: UIRefreshControl) {
         let request = URLRequest(url: url!)
         let session = URLSession(
             configuration: URLSessionConfiguration.default,
@@ -58,7 +60,7 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
                     self.response = responseDictionary.object(forKey: "response") as? NSDictionary
                     self.photosArray = self.getPhotosUrls(response: self.response!)
                     self.tableView.reloadData()
-
+                    refreshControl.endRefreshing()
                 }
             }
         });
@@ -73,10 +75,24 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
             //let original = photos[0].object(forKey: "original_size") as! NSDictionary
             let original = photos[0].object(forKey: "original_size") as! NSDictionary
             let url = original.object(forKey: "url") as! String
-//            print(url)
             photosArray.append(url)
         }
         return photosArray
     }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as! PhotoDetailsViewController
+        var indexPath = tableView.indexPathForSelectedRow
+        let url = photosArray?[(indexPath?.row)!]
+        vc.photoUrl = NSURL(string: url!) as? URL
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
+
+
 
