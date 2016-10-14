@@ -15,7 +15,8 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
     let url = URL(string:"https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=\(apiKey)")
     //var photosArray: [String]?
     
-    var response: AnyObject?
+    var response: NSDictionary?
+    var photosArray: [String]?
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -23,31 +24,27 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
 
         tableView.dataSource = self
         tableView.delegate = self
-        getPhotos()
+        
+        photosArray = [String]()
+        getResponse()
         tableView.rowHeight = 320
-    }
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(photosArray?.count)
         return (photosArray?.count)!
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "photoTableViewCell") as! PhotoTableViewCell
-        if (photosArray?.count)! > 0 {
-            let urlString = photosArray?[indexPath.row]
-            let url = URL(string: urlString!)
-            cell.photoImageView.setImageWith(url!)
-            print(urlString)
-        }
+        let urlString = photosArray?[indexPath.row] //as! String
+        print(indexPath.row)
+        print(urlString)
+        let url = NSURL(string: urlString!) as! URL
+        cell.photoImageView.setImageWith(url)
         return cell
     }
     
-    func getPhotos() {
+    func getResponse() {
         let request = URLRequest(url: url!)
         let session = URLSession(
             configuration: URLSessionConfiguration.default,
@@ -58,27 +55,28 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
         let task : URLSessionDataTask = session.dataTask(with: request,completionHandler: { (dataOrNil, response, error) in
             if let data = dataOrNil {
                 if let responseDictionary = try! JSONSerialization.jsonObject(with: data, options:[]) as? NSDictionary {
-                    response = responseDictionary.object(forKey: "response") as! NSDictionary
-                    //let posts = response.object(forKey: "posts") as! [NSDictionary]
-                    
-                    //post[0] should return dictionary
-                    
-                    //look for "photos" key which will return a dictionary
-                    
-                    //look for original_size_url
-                    
-                    
-                    //                    for post in posts {
-//                        let photoUrl = post["image_permalink"] as! String
-//                        self.photosArray!.append(photoUrl)
-//                    }
-//                    print(self.photosArray!.count)
+                    self.response = responseDictionary.object(forKey: "response") as? NSDictionary
+                    self.photosArray = self.getPhotosUrls(response: self.response!)
                     self.tableView.reloadData()
 
                 }
             }
         });
         task.resume()
+    }
+    
+    func getPhotosUrls(response: NSDictionary) -> [String] {
+        let posts = response.object(forKey: "posts") as! [NSDictionary]
+        var photosArray = [String]()
+        for post in posts {
+            let photos = post.object(forKey: "photos") as! [NSDictionary]
+            //let original = photos[0].object(forKey: "original_size") as! NSDictionary
+            let original = photos[0].object(forKey: "original_size") as! NSDictionary
+            let url = original.object(forKey: "url") as! String
+//            print(url)
+            photosArray.append(url)
+        }
+        return photosArray
     }
 }
 
