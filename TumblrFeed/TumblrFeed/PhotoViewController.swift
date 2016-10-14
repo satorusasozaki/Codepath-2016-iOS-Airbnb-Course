@@ -24,10 +24,12 @@ class PhotoViewController: UIViewController, UITableViewDataSource, UITableViewD
 
         tableView.dataSource = self
         tableView.delegate = self
-        
+        title = "Tumblr Feed"
         photosArray = [String]()
         let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(PhotoViewController.getResponse(refreshControl:)), for: UIControlEvents.valueChanged)
         getResponse(refreshControl: refreshControl)
+        tableView.insertSubview(refreshControl, at: 0)
         tableView.rowHeight = 320
         
     }
